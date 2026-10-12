@@ -1,70 +1,70 @@
 ﻿<?php
 class Product {
-    private \;
-    private \ = "products";
+    private $conn;
+    private $table_name = "products";
 
-    public function __construct(\) {
-        \->conn = \;
+    public function __construct($db) {
+        $this->conn = $db;
     }
 
     public function getAll() {
-        \ = "SELECT * FROM " . \->table_name . " ORDER BY id DESC";
-        \ = \->conn->prepare(\);
-        \->execute();
-        return \;
+        $query = "SELECT * FROM " . $this->table_name . " ORDER BY id DESC";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt;
     }
 
-    public function create(\, \, \) {
-        \ = "INSERT INTO " . \->table_name . " (nama_produk, harga, stok) VALUES (:nama, :harga, :stok)";
-        \ = \->conn->prepare(\);
+    public function create($nama, $harga, $stok) {
+        $query = "INSERT INTO " . $this->table_name . " (nama_produk, harga, stok) VALUES (:nama, :harga, :stok)";
+        $stmt = $this->conn->prepare($query);
         
-        \ = htmlspecialchars(strip_tags(\));
-        \ = htmlspecialchars(strip_tags(\));
-        \ = htmlspecialchars(strip_tags(\));
+        $nama = htmlspecialchars(strip_tags($nama));
+        $harga = htmlspecialchars(strip_tags($harga));
+        $stok = htmlspecialchars(strip_tags($stok));
 
-        \->bindParam(":nama", \);
-        \->bindParam(":harga", \);
-        \->bindParam(":stok", \);
+        $stmt->bindParam(":nama", $nama);
+        $stmt->bindParam(":harga", $harga);
+        $stmt->bindParam(":stok", $stok);
 
-        if(\->execute()) {
+        if($stmt->execute()) {
             return true;
         }
         return false;
     }
 
-    public function getById(\) {
-        \ = "SELECT * FROM " . \->table_name . " WHERE id = ? LIMIT 0,1";
-        \ = \->conn->prepare(\);
-        \->bindParam(1, \);
-        \->execute();
-        return \->fetch(PDO::FETCH_ASSOC);
+    public function getById($id) {
+        $query = "SELECT * FROM " . $this->table_name . " WHERE id = ? LIMIT 0,1";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(1, $id);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function update(\, \, \, \) {
-        \ = "UPDATE " . \->table_name . " SET nama_produk = :nama, harga = :harga, stok = :stok WHERE id = :id";
-        \ = \->conn->prepare(\);
+    public function update($id, $nama, $harga, $stok) {
+        $query = "UPDATE " . $this->table_name . " SET nama_produk = :nama, harga = :harga, stok = :stok WHERE id = :id";
+        $stmt = $this->conn->prepare($query);
 
-        \ = htmlspecialchars(strip_tags(\));
-        \ = htmlspecialchars(strip_tags(\));
-        \ = htmlspecialchars(strip_tags(\));
-        \ = htmlspecialchars(strip_tags(\));
+        $id = htmlspecialchars(strip_tags($id));
+        $nama = htmlspecialchars(strip_tags($nama));
+        $harga = htmlspecialchars(strip_tags($harga));
+        $stok = htmlspecialchars(strip_tags($stok));
 
-        \->bindParam(":id", \);
-        \->bindParam(":nama", \);
-        \->bindParam(":harga", \);
-        \->bindParam(":stok", \);
+        $stmt->bindParam(":id", $id);
+        $stmt->bindParam(":nama", $nama);
+        $stmt->bindParam(":harga", $harga);
+        $stmt->bindParam(":stok", $stok);
 
-        if(\->execute()) {
+        if($stmt->execute()) {
             return true;
         }
         return false;
     }
 
-    public function delete(\) {
-        \ = "DELETE FROM " . \->table_name . " WHERE id = ?";
-        \ = \->conn->prepare(\);
-        \->bindParam(1, \);
-        if(\->execute()) {
+    public function delete($id) {
+        $query = "DELETE FROM " . $this->table_name . " WHERE id = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(1, $id);
+        if($stmt->execute()) {
             return true;
         }
         return false;

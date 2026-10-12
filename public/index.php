@@ -1,22 +1,22 @@
 ﻿<?php
 require_once __DIR__ . '/../controllers/ProductController.php';
 
-\ = new ProductController();
-\ = \['action'] ?? 'index';
+$controller = new ProductController();
+$action = $_GET['action'] ?? 'index';
 
-switch (\) {
+switch ($action) {
     case 'create':
-        \->create();
+        $controller->create();
         break;
     case 'edit':
-        \->edit();
+        $controller->edit();
         break;
     case 'delete':
-        \->delete();
+        $controller->delete();
         break;
     case 'index':
     default:
-        \->index();
+        $controller->index();
         break;
 }
 ?>

@@ -19,15 +19,15 @@
             </tr>
         </thead>
         <tbody>
-            <?php while (\ = \->fetch(PDO::FETCH_ASSOC)): ?>
+            <?php while ($row = $stmt->fetch(PDO::FETCH_ASSOC)): ?>
             <tr>
-                <td><?= \['id']; ?></td>
-                <td><?= htmlspecialchars(\['nama_produk']); ?></td>
-                <td>Rp <?= number_format(\['harga'], 0, ',', '.'); ?></td>
-                <td><?= \['stok']; ?></td>
+                <td><?= $row['id']; ?></td>
+                <td><?= htmlspecialchars($row['nama_produk']); ?></td>
+                <td>Rp <?= number_format($row['harga'], 0, ',', '.'); ?></td>
+                <td><?= $row['stok']; ?></td>
                 <td>
-                    <a href="index.php?action=edit&id=<?= \['id']; ?>" class="btn btn-warning btn-sm">Edit</a>
-                    <a href="index.php?action=delete&id=<?= \['id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus?')">Hapus</a>
+                    <a href="index.php?action=edit&id=<?= $row['id']; ?>" class="btn btn-warning btn-sm">Edit</a>
+                    <a href="index.php?action=delete&id=<?= $row['id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus?')">Hapus</a>
                 </td>
             </tr>
             <?php endwhile; ?>

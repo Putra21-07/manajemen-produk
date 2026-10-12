@@ -1,20 +1,20 @@
 ﻿<?php
 class Database {
-    private \System.Management.Automation.Internal.Host.InternalHost = "localhost";
-    private \ = "db_manajemen_produk";
-    private \ = "root";
-    private \ = "";
-    public \;
+    private $host = "localhost";
+    private $db_name = "db_manajemen_produk";
+    private $username = "root";
+    private $password = "";
+    public $conn;
 
     public function getConnection() {
-        \->conn = null;
+        $this->conn = null;
         try {
-            \->conn = new PDO("mysql:host=" . \->host . ";dbname=" . \->db_name, \->username, \->password);
-            \->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        } catch(PDOException \) {
-            echo "Koneksi database gagal: " . \->getMessage();
+            $this->conn = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->db_name, $this->username, $this->password);
+            $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        } catch(PDOException $exception) {
+            echo "Koneksi database gagal: " . $exception->getMessage();
         }
-        return \->conn;
+        return $this->conn;
     }
 }
 ?>
